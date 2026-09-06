@@ -193,7 +193,7 @@ with tab4:
     st.info(r["recommendation"])
 
     chart_df = pd.DataFrame({
-        "Signal": ["Returns", "Cancellations", "Rating risk", "Anomaly", "Regional stress"],
+        "Signal": ["Returns","Cancellations","Rating risk","Anomaly","Fulfilment","Regional stress"],
         "Risk contribution": r["contributions"]
     })
     fig3 = px.bar(chart_df, x="Risk contribution", y="Signal", orientation="h", title="Explainable risk contribution")
