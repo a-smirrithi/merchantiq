@@ -41,7 +41,7 @@ city = st.sidebar.selectbox(
     ["Chennai", "Bengaluru", "Hyderabad", "Mumbai", "Delhi", "Kolkata", "Pune", "Coimbatore"],
     index=0,
 )
-refresh = st.sidebar.button("🔄 Refresh live data", use_container_width=True)
+refresh = st.sidebar.button("🔄 Refresh live data", width="stretch")
 st.sidebar.divider()
 st.sidebar.caption("Prototype • TVS Credit EPIC IT Case Study")
 st.sidebar.caption("Uses public APIs + simulated transaction telemetry. No private customer data.")
@@ -116,7 +116,7 @@ with tab1:
         view["anomaly_score"] = view["anomaly_score"].round(0).astype(int)
         st.dataframe(
             view.sort_values("risk_score", ascending=False),
-            use_container_width=True, hide_index=True,
+            width="stretch", hide_index=True,
             column_config={
                 "risk_score": st.column_config.ProgressColumn("Risk", min_value=0, max_value=100, format="%d"),
                 "return_rate": st.column_config.NumberColumn("Returns %"),
@@ -133,7 +133,7 @@ with tab1:
             title="Merchant risk score"
         )
         fig.update_layout(height=430, margin=dict(l=10,r=10,t=50,b=10), coloraxis_showscale=False)
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, width="stretch")
 
 with tab2:
     alerts = merchant_scores.sort_values("risk_score", ascending=False).head(6)
@@ -161,8 +161,8 @@ with tab3:
         pv["cancel_rate"] = pv["cancel_rate"].round(1)
         st.dataframe(
             pv[["product","category","merchant","orders","return_rate","cancel_rate","risk_score","risk_level"]],
-            use_container_width=True, hide_index=True,
-            column_config={"risk_score": st.column_config.ProgressColumn("Risk",0,100,"%d")}
+            width="stretch", hide_index=True,
+            column_config={"risk_score": st.column_config.ProgressColumn("Risk",min_value=0,max_value=100,format="%d")}
         )
     with pright:
         fig2 = px.scatter(
@@ -171,7 +171,7 @@ with tab3:
             range_color=[0,100], title="Return vs cancellation risk"
         )
         fig2.update_layout(height=420, margin=dict(l=10,r=10,t=50,b=10), coloraxis_showscale=False)
-        st.plotly_chart(fig2, use_container_width=True)
+        st.plotly_chart(fig2, width="stretch")
 
 with tab4:
     names = merchant_scores.sort_values("risk_score", ascending=False)["merchant"].tolist()
@@ -198,7 +198,7 @@ with tab4:
     })
     fig3 = px.bar(chart_df, x="Risk contribution", y="Signal", orientation="h", title="Explainable risk contribution")
     fig3.update_layout(height=300, margin=dict(l=10,r=10,t=50,b=10))
-    st.plotly_chart(fig3, use_container_width=True)
+    st.plotly_chart(fig3, width="stretch")
 
 # ---------- Footer ----------
 st.divider()
